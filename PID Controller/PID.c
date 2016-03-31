@@ -4,9 +4,9 @@ float outMin = -2048;
 float Ku = 11.37;
 float Tu = 0.00002;
 
-float Kp = 11.37;
-float Ki = 0;
-float Kd = 0;
+float Kp = 0.0114;
+float Ki = 2.67;
+float Kd = 0.643;
 
 int New_Val;
 int Old_Val;
