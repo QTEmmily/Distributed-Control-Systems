@@ -1,0 +1,57 @@
+m255
+K3
+13
+cModel Technology
+dC:\Program Files\Modelsim\examples
+Eclk_div
+Z0 w1459260879
+Z1 DPx4 ieee 14 std_logic_1164 0 22 GH1=`jDDBJ=`LM;:Ak`kf2
+Z2 dC:\Users\QTrooper\Documents\GitHub\Distributed-Control-Systems\VHDL_Files
+Z3 8C:/Users/QTrooper/PWM/PWM.srcs/sources_1/new/clk_div.vhd
+Z4 FC:/Users/QTrooper/PWM/PWM.srcs/sources_1/new/clk_div.vhd
+l0
+L34
+VbzDCgWIV^I2^P]JikMMf?2
+Z5 OV;C;6.5b;42
+32
+Z6 o-work work -2002 -explicit -O0
+Z7 tExplicit 1
+!s100 lJY4hdYML9Amh4B8:?D>z0
+Afunctional
+R1
+DEx4 work 7 clk_div 0 22 bzDCgWIV^I2^P]JikMMf?2
+l62
+L41
+V=9Ao`O96B9;if>M=iNdY03
+R5
+32
+Z8 Mx1 4 ieee 14 std_logic_1164
+R6
+R7
+!s100 7Q^IL<0J9Kk]T5zUfI65e2
+Edcs
+Z9 w1459341292
+R1
+R2
+Z10 8C:/Users/QTrooper/Documents/GitHub/Distributed-Control-Systems/VHDL_Files/DCS.vhd
+Z11 FC:/Users/QTrooper/Documents/GitHub/Distributed-Control-Systems/VHDL_Files/DCS.vhd
+l0
+L34
+VWS3Hbf_`7LkN@RR6gVBci1
+!s100 IYQ]k8RZT7KLCR0Fn?kFo1
+R5
+32
+R6
+R7
+Astructural
+R1
+DEx4 work 3 dcs 0 22 WS3Hbf_`7LkN@RR6gVBci1
+l59
+L57
+VP^GC_eQX13>E;SoU_ebGF3
+!s100 DJ1Y`zHkR>>ROMfjC6[>m1
+R5
+32
+R8
+R6
+R7

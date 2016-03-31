@@ -76,7 +76,7 @@ void GPIO_Config(void)
 void DAC_Config(void)
 {
 	DAC->CR = DAC->CR | 0x00390039;
-  DAC->DHR12R2 = 2048;
+	DAC->DHR12R2 = 2048;
 	DAC->SWTRIGR = DAC->SWTRIGR | 0x00000003;	
 }
 
