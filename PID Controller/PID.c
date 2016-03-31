@@ -45,7 +45,7 @@ float* PID_Calc(float* Val)
   //New_Val = (TIM1_CCR1 - Old_Val);
 
   //Callibrate it to degrees
-  Position = *Val * 0.36;
+  Position = *Val * 0.18;
 	if(Position > 180)
 	{
 		Position = Position - 360;

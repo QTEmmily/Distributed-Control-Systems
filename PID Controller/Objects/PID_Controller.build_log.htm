@@ -27,16 +27,16 @@ Project File Date:  03/31/2016
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'PID Controller'
-compiling PID.c...
-PID.c(38): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	Kp = Ku*0.6;
-PID.c(48): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-    Position = *Val * 0.36;
-PID.c(79): warning:  #1-D: last line of file ends without a newline
-  }
-PID.c: 3 warnings, 0 errors
+compiling work.c...
+Init.h(7): warning:  #1-D: last line of file ends without a newline
+  void NVIC_Enable(void);
+PID.h(7): warning:  #1-D: last line of file ends without a newline
+  #endif
+work.h(2): warning:  #1-D: last line of file ends without a newline
+  void Prog(void);
+work.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=2092 RO-data=460 RW-data=112 ZI-data=1632  
+Program Size: Code=2416 RO-data=460 RW-data=112 ZI-data=1632  
 ".\Objects\PID_Controller.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -126,7 +126,7 @@ Package Vendor: Keil
    * Component: Keil::Device:STM32Cube HAL:RCC:1.4.2
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
