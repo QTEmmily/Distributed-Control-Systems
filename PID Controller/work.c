@@ -74,8 +74,8 @@ void TIM2_IRQHandler(void)
 {
 	TIM2->SR = 0x000000000;
 	TIM2->CNT = 0x000000000;
-	Set_Point2 = ~Set_Point2;
-	Asign(Set_Point2);
+	//Set_Point2 = ~Set_Point2;
+	//Asign(Set_Point2);
 }
 
 

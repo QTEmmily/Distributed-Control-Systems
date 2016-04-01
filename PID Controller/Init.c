@@ -42,7 +42,7 @@
 void Timer5_Config(void)
 {
 	TIM5->CR1 = 0x0000;
-	TIM5->PSC = 0x0001;
+	TIM5->PSC = 0x0013;
 	TIM5->ARR = 0x019F; //0x0050
 	TIM5->DIER = 0x0001;
 	TIM5->CR1 = 0x0001;
@@ -52,7 +52,7 @@ void Timer2_Config(void)
 {
 	TIM2->CR1 = 0x0000;
 	TIM2->PSC = 0x03E7;
-	TIM2->ARR = 0x019F; //0x0050
+	TIM2->ARR = 0x7FFF; //0x0050
 	TIM2->DIER = 0x0001;
 	TIM2->CR1 = 0x0001;
 }
