@@ -1,12 +1,12 @@
 float outMax = 2047;
 float outMin = -2048;
 
-float Ku = 11.37;
-float Tu = 0.00002;
+float Ku = 2.17;
+float Tu = 0.160;
 
-float Kp = 11.37;
-float Ki = 0;
-float Kd = 0;
+float Kp = 4; //11.37;//0.00114;
+float Ki = 0;//0;//2.67;
+float Kd = 200;//0;//0.643;
 
 int New_Val;
 int Old_Val;
@@ -31,6 +31,8 @@ char txt1[10];
 void Asign(int Set)
 {
 	Set_Point = Set;
+	ITerm = 0;
+	dPosition = 0;
 }
 
 void Set_Factors(void)
@@ -45,15 +47,19 @@ float* PID_Calc(float* Val)
   //New_Val = (TIM1_CCR1 - Old_Val);
 
   //Callibrate it to degrees
-  Position = *Val * 0.36;
-	if(Position > 180)
-	{
-		Position = Position - 360;
-	}
-	else
-	{
-		Position = Position;
-	}
+  Position = *Val * 0.18;
+//	if(Position > 185)
+//	{
+//		Position = Position - 360;
+//	}
+//	else if (Position < 175)
+//	{
+//		Position = Position;
+//	}
+//	else 
+//	{
+//		Position = 180;
+//	}
   //Calculate the error
   Error = Set_Point - Position;
 

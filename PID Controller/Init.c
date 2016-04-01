@@ -42,7 +42,7 @@
 void Timer5_Config(void)
 {
 	TIM5->CR1 = 0x0000;
-	TIM5->PSC = 0x0001;
+	TIM5->PSC = 0x0013;
 	TIM5->ARR = 0x019F; //0x0050
 	TIM5->DIER = 0x0001;
 	TIM5->CR1 = 0x0001;
@@ -52,7 +52,7 @@ void Timer2_Config(void)
 {
 	TIM2->CR1 = 0x0000;
 	TIM2->PSC = 0x03E7;
-	TIM2->ARR = 0x019F; //0x0050
+	TIM2->ARR = 0x7FFF; //0x0050
 	TIM2->DIER = 0x0001;
 	TIM2->CR1 = 0x0001;
 }
@@ -60,12 +60,12 @@ void Timer2_Config(void)
 void Encoder_Config(void)
 {
 	TIM1->CR1 = 0x0000;
-	TIM1->SMCR = TIM1->SMCR | 0x0052;
+	TIM1->SMCR = TIM1->SMCR | 0x0053;
 	TIM1->CCMR1 = TIM1->CCMR1  | 0x0101;
 	TIM1->EGR = TIM1->EGR | 0x0001;
 	TIM1->CCER = TIM1->CCER | 0x0011;
 	TIM1->DIER = TIM1->DIER | 0x0006;
-	TIM1->ARR = 0x3E8; //0x03E8 0x01F4 0x07D0 0x0780
+	TIM1->ARR = 0x07D0; //0x03E8 0x01F4 0x07D0 0x0780
 	TIM1->CR1 = 0x0001;
 	
 	GPIOE->MODER = 0x00880000;
