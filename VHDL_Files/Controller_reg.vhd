@@ -32,8 +32,89 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity controller is
-    Port ( clk_in  : in STD_LOGIC;
-           nrst    : in STD_LOGIC;
-           divider : in STD_LOGIC_VECTOR(31 downto 0);
-           clk_out : out STD_LOGIC);
+    Port (clk     : in STD_LOGIC;
+          nrst    : in STD_LOGIC;
+          araddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          arvalid : out STD_LOGIC;
+          arready : in STD_LOGIC;
+          rvalid  : in STD_LOGIC;
+          address : in integer range -1 to 15;
+          addr_out: out integer range -1 to 15;
+          ld_data : out STD_LOGIC;
+          enab_cnt: out STD_LOGIC;
+          rready  : out STD_LOGIC);
 end controller;
+
+architecture functional of controller is
+signal state : integer;
+
+Procedure int2bin(int : in integer; word : out Std_Logic_vector) is
+  variable tmp : integer;
+  Begin
+    IF int<0 or int>2**word'length-1 THEN
+      FOR i in word'range LOOP
+        word(i) := 'X';
+      END LOOP;
+    ELSE
+      tmp := int;
+      FOR i in 0 to (word'length-1) LOOP
+        IF (tmp mod 2 = 1) THEN
+          word(i) := '1';
+        ELSE
+          word(i) := '0';
+        END IF;
+        tmp := tmp/2;
+      END LOOP;
+    END iF;
+  END int2bin;
+
+begin
+  process (clk, nrst)
+    begin
+      if nrst = '0' then
+        state <= 0;
+      elsif clk'event and clk = '1' then
+      case state is 
+      when 0 => if arready = '0' then state <= 0;
+                elsif arready = '1' then state <= 1;
+                else state <= -1;
+                end if;
+      when 1 => if rvalid = '0' then state <= 1;
+                elsif rvalid = '1' then state <= 2;
+                else state <= -1;
+                end if;
+      when 2 => state <= 3;
+      when 3 => state <= 0;
+      when others => state <= -1;
+      end case;
+    end if;
+    end process;
+  
+  
+  process (state)
+    procedure drive_outputs(o1 : std_logic_vector(4 downto 0); o2 : integer range -1 to 15; o3, o4, o5, o6 : std_logic) is 
+    begin
+      araddr <= o1;
+      addr_out <= o2;
+      arvalid <= o3;
+      ld_data <= o4;
+      enab_cnt <= o5;
+      rready <= o6;      
+    end drive_outputs;
+    variable addr : std_logic_vector(4 downto 0);
+    begin
+      int2bin(address, addr);
+      case state is
+      when 0 =>
+        drive_outputs(addr, 15, '1', '0', '0', '0');
+      when 1 =>
+        drive_outputs(addr, 15, '1', '0', '0', '0');
+      when 2 =>
+        drive_outputs("ZZZZZZZ", address, '0', '1', '1', '1');
+      when 3 =>
+        drive_outputs("ZZZZZZZ", 15, '0', '0', '0', '0');
+      when others =>
+        drive_outputs("XXXXXXX", -1, 'X', 'X', 'X', 'X');
+      end case;
+    end process;
+end functional;

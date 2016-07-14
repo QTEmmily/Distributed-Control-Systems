@@ -31,23 +31,95 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Reg_In is
-    Port (clk  : in STD_LOGIC;
+entity Reg_Struct is
+    Port (clk     : in STD_LOGIC;
           nrst    : in STD_LOGIC;
-          awaddr  : in STD_LOGIC_VECTOR(6 downto 0);
-          awvalid : in STD_LOGIC;
-          awready : out STD_LOGIC;
-          wdata   : in STD_LOGIC_VECTOR(31 downto 0);
-          wstrobe : in STD_LOGIC_VECTOR(3 downto 0);
-          wvalid  : in STD_LOGIC;
-          wready  : out STD_LOGIC;
-          bresp   : out STD_LOGIC_VECTOR(1 downto 0);
-          bvalid  : out STD_LOGIC;
-          bready  : in STD_LOGIC);
-end Reg_In;
+          araddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          arvalid : out STD_LOGIC;
+          arready : in STD_LOGIC;
+          rdata   : in STD_LOGIC_VECTOR(31 downto 0);
+          rvalid  : in  STD_LOGIC;
+          rready  : out STD_LOGIC;
+          Setpoint: out STD_LOGIC_VECTOR(31 downto 0);
+          Kp      : out STD_LOGIC_VECTOR(31 downto 0);
+          Ki      : out STD_LOGIC_VECTOR(31 downto 0);
+          Kd      : out STD_LOGIC_VECTOR(31 downto 0);
+          Update  : out STD_LOGIC_VECTOR(31 downto 0);
+          clk_div : out STD_LOGIC_VECTOR(31 downto 0));
+end Reg_Struct;
 
-architecture Structural of Reg_In is
+architecture Structural of Reg_Struct is
+component Controller
+    Port (clk     : in STD_LOGIC;
+          nrst    : in STD_LOGIC;
+          araddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          arvalid : out STD_LOGIC;
+          arready : in STD_LOGIC;
+          rvalid  : in STD_LOGIC;
+          address : in integer range -1 to 31;
+          addr_out: out integer range -1 to 31;
+          ld_data : out STD_LOGIC;
+          enab_cnt: out STD_LOGIC;
+          rready  : out STD_LOGIC);
+end component;
+component Reg_in
+  Port (clk     : in STD_LOGIC;
+        ld_data : in STD_LOGIC;
+        rdata   : in STD_LOGIC_VECTOR(31 downto 0);
+        address : in integer range -1 to 31;
+        Setpoint: out STD_LOGIC_VECTOR(31 downto 0);
+        Kp      : out STD_LOGIC_VECTOR(31 downto 0);
+        Ki      : out STD_LOGIC_VECTOR(31 downto 0);
+        Kd      : out STD_LOGIC_VECTOR(31 downto 0);
+        Update  : out STD_LOGIC_VECTOR(31 downto 0);
+        clk_div : out STD_LOGIC_VECTOR(31 downto 0)
+        );
+end component;
+component Counter
+  Port (clk     : in STD_LOGIC;
+        nrst    : in STD_LOGIC;
+        enab_cnt: in STD_LOGIC;
+        address : out integer range -1 to 31);
+end component;
 
+for all : Controller use entity work.controller(functional);
+for all : Reg_in use entity work.Reg_in(functional);
+for all : Counter use entity work.Counter(functional);
+
+signal enab_cnt : std_logic;
+signal ld_data  : std_logic;
+signal addr_out : integer range -1 to 31;
+signal address  : integer range -1 to 31;
 begin
-  
+  Control : Controller port map(
+        clk     => clk,
+        nrst    => nrst,
+        araddr  => araddr,
+        arvalid => arvalid,
+        arready => arready,
+        rvalid  => rvalid,
+        address => address,
+        addr_out=> addr_out,
+        ld_data => ld_data,
+        enab_cnt=> enab_cnt,
+        rready  => rready
+                                );
+  Reg      : Reg_in     port map(
+        clk     => clk,
+        ld_data => ld_data,
+        rdata   => rdata,
+        address => addr_out,
+        Setpoint=> Setpoint,
+        Kp      => Kp,
+        Ki      => Ki,
+        Kd      => Kd,
+        Update  => Update,
+        clk_div => clk_div
+                                );
+  Count   : Counter    port map(
+        clk     => clk,
+        nrst    => nrst,
+        enab_cnt=> enab_cnt,
+        address => address
+                                );
 end Structural;

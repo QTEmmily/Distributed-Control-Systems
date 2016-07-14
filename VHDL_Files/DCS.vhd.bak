@@ -36,29 +36,78 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity DCS is
     Port (clk  : in STD_LOGIC;
           nrst : in STD_LOGIC;
+          clk_out : out STD_LOGIC;
           --Write ports
-          awaddr  : in STD_LOGIC_VECTOR(6 downto 0);
-          awvalid : in STD_LOGIC;
-          awready : out STD_LOGIC;
-          wdata   : in STD_LOGIC_VECTOR(31 downto 0);
-          wstrobe : in STD_LOGIC_VECTOR(3 downto 0);
-          wvalid  : in STD_LOGIC;
-          wready  : out STD_LOGIC;
-          bresp   : out STD_LOGIC_VECTOR(1 downto 0);
-          bvalid  : out STD_LOGIC;
-          bready  : in STD_LOGIC;
+          awaddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          awprot  : out STD_LOGIC_VECTOR(2 downto 0);
+          awvalid : out STD_LOGIC;
+          awready : in STD_LOGIC;
+          wdata   : out STD_LOGIC_VECTOR(31 downto 0);
+          wstrb   : out STD_LOGIC_VECTOR(3 downto 0);
+          wvalid  : out STD_LOGIC;
+          wready  : in STD_LOGIC;
+          bresp   : in STD_LOGIC_VECTOR(1 downto 0);
+          bvalid  : in STD_LOGIC;
+          bready  : out STD_LOGIC;
           --Read ports
-          araddr  : in STD_LOGIC_VECTOR(6 downto 0);
-          arvalid : in STD_LOGIC;
-          arready : out STD_LOGIC;
-          rdata   : out STD_LOGIC_VECTOR(31 downto 0);
-          rvalid  : out STD_LOGIC;
-          rready  : in STD_LOGIC);
+          araddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          arprot  : out STD_LOGIC_VECTOR(2 downto 0);
+          arvalid : out STD_LOGIC;
+          arready : in STD_LOGIC;
+          rdata   : in STD_LOGIC_VECTOR(31 downto 0);
+          rresp   : in STD_LOGIC_VECTOR(1 downto 0);
+          rvalid  : in STD_LOGIC;
+          rready  : out STD_LOGIC;
+          --Regs
+          clk_div : out STD_LOGIC_VECTOR(31 downto 0);
+          Setpoint: out STD_LOGIC_VECTOR(31 downto 0);
+          Kp      : out STD_LOGIC_VECTOR(31 downto 0);
+          Ki      : out STD_LOGIC_VECTOR(31 downto 0);
+          Kd      : out STD_LOGIC_VECTOR(31 downto 0);
+          Update  : out STD_LOGIC_VECTOR(31 downto 0)
+          );
 end DCS;
 
 architecture Structural of DCS is
+component Input_Reg
+    Port (clk     : in STD_LOGIC;
+          nrst    : in STD_LOGIC;
+          araddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          arvalid : out STD_LOGIC;
+          arready : in STD_LOGIC;
+          rdata   : in STD_LOGIC_VECTOR(31 downto 0);
+          rvalid  : in  STD_LOGIC;
+          rready  : out STD_LOGIC;
+          Setpoint: out STD_LOGIC_VECTOR(31 downto 0);
+          Kp      : out STD_LOGIC_VECTOR(31 downto 0);
+          Ki      : out STD_LOGIC_VECTOR(31 downto 0);
+          Kd      : out STD_LOGIC_VECTOR(31 downto 0);
+          Update  : out STD_LOGIC_VECTOR(31 downto 0);
+          clk_div : out STD_LOGIC_VECTOR(31 downto 0)
+          );
+end component;
+
+for all : Input_Reg use entity work.reg_struct(structural);
+
+
 
 begin
 
-
+Input_Regs  : Input_Reg port map  (
+                                    clk     =>  clk,
+                                    nrst    =>  nrst,
+                                    araddr  =>  araddr,
+                                    arvalid =>  arvalid,
+                                    arready =>  arready,
+                                    rdata   =>  rdata,
+                                    rvalid  =>  rvalid,
+                                    rready  =>  rready,
+                                    Setpoint=>  Setpoint,
+                                    Kp      =>  Kp,
+                                    Ki      =>  Ki,
+                                    Kd      =>  Kd,
+                                    Update  =>  Update,
+                                    clk_div =>  clk_div
+                                  );
+ clk_out <= clk_int;
 end Structural;

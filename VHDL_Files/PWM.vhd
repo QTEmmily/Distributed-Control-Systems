@@ -31,9 +31,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity clk_div is
+entity PWM is
     Port ( clk_in  : in STD_LOGIC;
            nrst    : in STD_LOGIC;
            divider : in STD_LOGIC_VECTOR(31 downto 0);
            clk_out : out STD_LOGIC);
-end clk_div;
+end PWM;
