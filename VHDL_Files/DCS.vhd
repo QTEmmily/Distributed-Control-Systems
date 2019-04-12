@@ -1,0 +1,112 @@
+----------------------------------------------------------------------------------
+-- Company: Fontys University of applied sciences
+-- Engineer: Emmily Jansen
+-- 
+-- Create Date: 30.03.2016 08:29:10
+-- Design Name: 
+-- Module Name: DCS - Structural
+-- Project Name: 
+-- Target Devices: ZedBoard 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- This is the main file used in the internship of Emmily Jansen. This contains
+-- a structural model of the blocks needed to implement a distributed control
+-- system. 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity DCS is
+    Port (clk  : in STD_LOGIC;
+          nrst : in STD_LOGIC;
+          clk_out : out STD_LOGIC;
+          --Write ports
+          awaddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          awprot  : out STD_LOGIC_VECTOR(2 downto 0);
+          awvalid : out STD_LOGIC;
+          awready : in STD_LOGIC;
+          wdata   : out STD_LOGIC_VECTOR(31 downto 0);
+          wstrb   : out STD_LOGIC_VECTOR(3 downto 0);
+          wvalid  : out STD_LOGIC;
+          wready  : in STD_LOGIC;
+          bresp   : in STD_LOGIC_VECTOR(1 downto 0);
+          bvalid  : in STD_LOGIC;
+          bready  : out STD_LOGIC;
+          --Read ports
+          araddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          arprot  : out STD_LOGIC_VECTOR(2 downto 0);
+          arvalid : out STD_LOGIC;
+          arready : in STD_LOGIC;
+          rdata   : in STD_LOGIC_VECTOR(31 downto 0);
+          rresp   : in STD_LOGIC_VECTOR(1 downto 0);
+          rvalid  : in STD_LOGIC;
+          rready  : out STD_LOGIC;
+          --Regs
+          clk_div : out STD_LOGIC_VECTOR(31 downto 0);
+          Setpoint: out STD_LOGIC_VECTOR(31 downto 0);
+          Kp      : out STD_LOGIC_VECTOR(31 downto 0);
+          Ki      : out STD_LOGIC_VECTOR(31 downto 0);
+          Kd      : out STD_LOGIC_VECTOR(31 downto 0);
+          Update  : out STD_LOGIC_VECTOR(31 downto 0)
+          );
+end DCS;
+
+architecture Structural of DCS is
+component Input_Reg
+    Port (clk     : in STD_LOGIC;
+          nrst    : in STD_LOGIC;
+          araddr  : out STD_LOGIC_VECTOR(4 downto 0);
+          arvalid : out STD_LOGIC;
+          arready : in STD_LOGIC;
+          rdata   : in STD_LOGIC_VECTOR(31 downto 0);
+          rvalid  : in  STD_LOGIC;
+          rready  : out STD_LOGIC;
+          Setpoint: out STD_LOGIC_VECTOR(31 downto 0);
+          Kp      : out STD_LOGIC_VECTOR(31 downto 0);
+          Ki      : out STD_LOGIC_VECTOR(31 downto 0);
+          Kd      : out STD_LOGIC_VECTOR(31 downto 0);
+          Update  : out STD_LOGIC_VECTOR(31 downto 0);
+          clk_div : out STD_LOGIC_VECTOR(31 downto 0)
+          );
+end component;
+
+for all : Input_Reg use entity work.reg_struct(structural);
+
+
+
+begin
+
+Input_Regs  : Input_Reg port map  (
+                                    clk     =>  clk,
+                                    nrst    =>  nrst,
+                                    araddr  =>  araddr,
+                                    arvalid =>  arvalid,
+                                    arready =>  arready,
+                                    rdata   =>  rdata,
+                                    rvalid  =>  rvalid,
+                                    rready  =>  rready,
+                                    Setpoint=>  Setpoint,
+                                    Kp      =>  Kp,
+                                    Ki      =>  Ki,
+                                    Kd      =>  Kd,
+                                    Update  =>  Update,
+                                    clk_div =>  clk_div
+                                  );
+end Structural;

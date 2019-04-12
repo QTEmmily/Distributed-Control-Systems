@@ -1,0 +1,26 @@
+C:/Users/QTrooper/Documents/GitHub/Distributed-Control-Systems/VHDL_Files/Testbench.vhd {1 {vcom -work work -2002 -explicit C:/Users/QTrooper/Documents/GitHub/Distributed-Control-Systems/VHDL_Files/Testbench.vhd
+Model Technology ModelSim ALTERA vcom 6.5b Compiler 2009.10 Oct  1 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Compiling entity testbench
+-- Compiling architecture functional of testbench
+
+} {} {}} C:/Users/QTrooper/Documents/GitHub/Distributed-Control-Systems/VHDL_Files/Testbench_struct.vhd {1 {vcom -work work -2002 -explicit C:/Users/QTrooper/Documents/GitHub/Distributed-Control-Systems/VHDL_Files/Testbench_struct.vhd
+Model Technology ModelSim ALTERA vcom 6.5b Compiler 2009.10 Oct  1 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Compiling entity testbench_struct
+-- Compiling architecture structural of testbench_struct
+
+} {} {}} C:/Users/QTrooper/Documents/GitHub/Distributed-Control-Systems/VHDL_Files/Teller.vhd {1 {vcom -work work -2002 -explicit C:/Users/QTrooper/Documents/GitHub/Distributed-Control-Systems/VHDL_Files/Teller.vhd
+Model Technology ModelSim ALTERA vcom 6.5b Compiler 2009.10 Oct  1 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package numeric_std
+-- Loading package std_logic_signed
+-- Compiling entity teller
+-- Compiling architecture functional of teller
+
+} {} {}}
